@@ -76,7 +76,7 @@ public class GPSService extends Service implements GoogleApiClient.ConnectionCal
         Log.i(LOGSERVICE, "lat " + location.getLatitude());
         Log.i(LOGSERVICE, "lng " + location.getLongitude());
         LatLng mLocation = (new LatLng(location.getLatitude(), location.getLongitude()));
-        Toast.makeText(this, String.valueOf(mLocation.latitude), Toast.LENGTH_SHORT).show();
+
         //EventBus.getDefault().post(mLocation);
 
     }

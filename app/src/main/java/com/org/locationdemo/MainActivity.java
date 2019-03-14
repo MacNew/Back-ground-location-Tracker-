@@ -1,7 +1,12 @@
 package com.org.locationdemo;
 
 import android.Manifest;
+import android.app.NotificationManager;
+import android.app.PendingIntent;
+import android.content.Context;
 import android.content.Intent;
+import android.support.v4.app.NotificationCompat;
+import android.support.v4.app.TaskStackBuilder;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
 import android.widget.Toast;
@@ -17,7 +22,25 @@ public class MainActivity extends AppCompatActivity {
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_main);
+
         requestLocationPermission();
+    }
+
+    private void showSystemNotification() {
+        NotificationCompat.Builder mBuilder = new NotificationCompat.Builder(this);
+        mBuilder.setSmallIcon(R.drawable.cast_ic_notification_small_icon);
+        mBuilder.setContentTitle("Notification Alert, Click Me");
+        mBuilder.setContentTitle("Hi, This is Android Notification Details");
+        Intent resultIntent = new Intent(this,ResultActivity.class );
+        TaskStackBuilder stackBuilder = TaskStackBuilder.create(this);
+        // Adds the Intent starts the Activity to the top of the stack
+        stackBuilder.addNextIntent(resultIntent);
+        PendingIntent resultPendingIntet = stackBuilder.getPendingIntent(0, PendingIntent.FLAG_CANCEL_CURRENT);
+        mBuilder.setContentIntent(resultPendingIntet);
+        NotificationManager mNotificationManger = (NotificationManager) getSystemService(Context.NOTIFICATION_SERVICE);
+        // notificastionID allows tyou to update the notification latter on
+        mNotificationManger.notify(1, mBuilder.build());
+
     }
 
     @Override
